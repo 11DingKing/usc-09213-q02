@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createServer } from "../src/server.mjs";
+import { createServer } from "../src/httpApp.mjs";
+import { makeDesk } from "./helpers.mjs";
 
 test("健康检查返回可用状态", async () => {
-  const server = createServer();
+  const server = createServer(makeDesk().desk);
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
   try {
     const address = server.address();
